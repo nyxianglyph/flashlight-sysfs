@@ -1,6 +1,6 @@
 Name:       flashlight-sysfs
 Summary:    Sailfish OS flashlight provider for a sysfs torch node
-Version:    0.1.0
+Version:    0.1.1
 Release:    1
 License:    BSD-3-Clause
 URL:        https://github.com/nyxianglyph/flashlight-sysfs
@@ -31,5 +31,6 @@ make install DESTDIR=%{buildroot}
 %{_bindir}/flashlight-sysfs
 %config(noreplace) %{_sysconfdir}/flashlight-sysfs.conf
 %{_datadir}/dbus-1/services/org.sailfish.flashlight.provider.service
+/usr/libexec/flashlight-sysfs-permissions
 /usr/lib/systemd/system/flashlight-sysfs-permissions.service
 /usr/lib/systemd/system/multi-user.target.wants/flashlight-sysfs-permissions.service

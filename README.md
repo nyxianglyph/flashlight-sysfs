@@ -24,8 +24,9 @@ The defaults are for the Xiaomi 14T (`degas`, MediaTek flashlight core with
 an LM3644 driver), where the value is the torch current in mA.
 
 `flashlight-sysfs-permissions.service` gives the `camera` group write access
-to that file after the Android init has set its ownership; the session user
-is a member of that group.
+to that file; the session user is a member of that group. Android's init
+sets the ownership of such nodes itself when `sys.boot_completed` turns 1,
+so the service waits for that property first.
 
 ## Building
 

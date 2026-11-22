@@ -3,11 +3,8 @@ Description=Let the user session switch the torch
 After=droid-hal-init.service
 
 [Service]
-Type=oneshot
-# Android's init gives the node to system:system; the session user is in the
-# camera group.
-ExecStart=/bin/sh -c 'f=$(sed -n "s/^path=//p" /etc/flashlight-sysfs.conf); i=0; while [ ! -e "$f" ] && [ $i -lt 30 ]; do sleep 1; i=$((i+1)); done; sleep 5; chgrp camera "$f" && chmod 0664 "$f"'
-RemainAfterExit=yes
+Type=simple
+ExecStart=/usr/libexec/flashlight-sysfs-permissions
 
 [Install]
 WantedBy=multi-user.target

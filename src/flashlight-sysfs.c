@@ -107,7 +107,15 @@ static void schedule_idle_exit(void)
 
 static void set_torch(GDBusConnection *conn, gboolean on)
 {
-    if (on == torch_on || !write_torch(on)) {
+    if (on == torch_on) {
+        schedule_idle_exit();
+        return;
+    }
+    if (!write_torch(on)) {
+        /* Tell clients the state did not change, so a switch that already
+         * shows the new state goes back. */
+        g_dbus_connection_emit_signal(conn, NULL, OBJ_PATH, IFACE, "flashlightOnChanged",
+            g_variant_new("(b)", torch_on), NULL);
         schedule_idle_exit();
         return;
     }
